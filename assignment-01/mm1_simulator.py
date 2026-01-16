@@ -62,7 +62,8 @@ class MM1QueueSimulation:
 
     def expon(self, mean: float) -> float:
         """Return an exponentially distributed random variate."""
-        return -mean * math.log(random.random())
+        u = max(random.random(), 1e-10)
+        return -mean * math.log(u)
 
     def update_time_avg_stats(self) -> None:
         """Update time-average statistical accumulators."""
