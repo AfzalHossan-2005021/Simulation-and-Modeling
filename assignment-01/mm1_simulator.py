@@ -151,7 +151,7 @@ def main() -> None:
     script_dir = os.path.dirname(__file__)
     input_file = os.path.join(script_dir, 'in.txt')
     output_file = os.path.join(script_dir, 'out.txt')
-    
+
     try:
         with open(input_file, 'r', encoding='utf-8') as infile:
             line = infile.read().split()
