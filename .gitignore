@@ -39,3 +39,12 @@
 
 # debug information files
 *.dwo
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+
+# Assignment output files
+assignment-01/out.txt
