@@ -4,9 +4,9 @@ Simple event-driven simulation for a single-server queue (M/M/1).
 """
 
 import sys
+import os
 import math
 import random
-import os
 from dataclasses import dataclass
 from typing import TextIO
 
