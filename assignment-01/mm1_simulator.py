@@ -151,8 +151,18 @@ def main() -> None:
         with open('in.txt', 'r', encoding='utf-8') as infile:
             line = infile.read().split()
             m_inter, m_serv, n_delays = float(line[0]), float(line[1]), int(line[2])
-    except (FileNotFoundError, IndexError, ValueError):
-        print("Error reading in.txt")
+    except FileNotFoundError:
+        print("Error: input file 'in.txt' not found.", file=sys.stderr)
+        return
+    except IndexError:
+        print(
+            "Error: 'in.txt' must contain at least three values: "
+            "mean interarrival time, mean service time, and number of customers.",
+            file=sys.stderr,
+        )
+        return
+    except ValueError as exc:
+        print(f"Error: failed to parse numeric values from 'in.txt': {exc}", file=sys.stderr)
         return
 
     with open('out.txt', 'w', encoding='utf-8') as outfile:
