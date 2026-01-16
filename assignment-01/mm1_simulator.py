@@ -101,7 +101,7 @@ class MM1QueueSimulation:
         if self.state.server_status == BUSY:
             self.state.num_in_q += 1
             if self.state.num_in_q > Q_LIMIT:
-                outfile.write(f"\nOverflow at time {self.state.sim_time}")
+                outfile.write(f"\nOverflow at time {self.state.sim_time}\n")
                 sys.exit(2)
             self.time_arrival[self.state.num_in_q] = self.state.sim_time
         else:
