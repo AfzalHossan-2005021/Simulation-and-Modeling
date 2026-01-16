@@ -142,7 +142,7 @@ class MM1QueueSimulation:
         outfile.write(f"\n\nAverage delay in queue{avg_delay:11.3f} minutes\n\n")
         outfile.write(f"Average number in queue{avg_q:10.3f}\n\n")
         outfile.write(f"Server utilization{util:15.3f}\n\n")
-        outfile.write(f"Time simulation ended{self.state.sim_time:12.3f} minutes")
+        outfile.write(f"Time simulation ended{self.state.sim_time:12.3f} minutes\n")
 
 
 def main() -> None:
