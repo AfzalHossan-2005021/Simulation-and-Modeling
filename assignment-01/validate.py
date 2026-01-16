@@ -17,21 +17,21 @@ import sys
 import os
 
 
-def run_command(command: str) -> bool:
+def run_command(command: list) -> bool:
     """
-    Run a shell command and return True if successful.
+    Run a command and return True if successful.
 
     Args:
-        command: The command to run.
+        command: The command to run as a list of arguments.
 
     Returns:
         bool: True if the command succeeded (return code 0), False otherwise.
     """
     try:
         print(f"\n{'='*50}")
-        print(f"Running: {command}")
+        print(f"Running: {' '.join(command)}")
         print('='*50)
-        result = subprocess.run(command, shell=True, capture_output=True,
+        result = subprocess.run(command, capture_output=True,
                                 text=True, cwd=os.path.dirname(__file__))
         if result.stdout:
             print("STDOUT:")
@@ -62,10 +62,10 @@ def main() -> None:
         sys.exit(1)
 
     commands = [
-        f'python -m py_compile "{file_path}"',
-        f'python -m mypy "{file_path}"',
-        f'python -m pylint "{file_path}"',
-        f'python -m flake8 "{file_path}" --max-line-length=120'
+        ['python', '-m', 'py_compile', file_path],
+        ['python', '-m', 'mypy', file_path],
+        ['python', '-m', 'pylint', file_path],
+        ['python', '-m', 'flake8', file_path, '--max-line-length=120']
     ]
 
     all_passed = True
