@@ -53,9 +53,11 @@ def run_command(command: str) -> bool:
 def main() -> None:
     """Main function to run all validation checks."""
     file_path = r"mm1_simulator.py"
+    script_dir = os.path.dirname(__file__)
+    full_path = os.path.join(script_dir, file_path)
 
     # Check if file exists
-    if not os.path.exists(file_path):
+    if not os.path.exists(full_path):
         print(f"Error: File {file_path} does not exist.")
         sys.exit(1)
 
