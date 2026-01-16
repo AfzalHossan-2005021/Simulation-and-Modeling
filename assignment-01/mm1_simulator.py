@@ -7,7 +7,6 @@ import sys
 import os
 import math
 import random
-import os
 from dataclasses import dataclass
 from typing import TextIO
 
