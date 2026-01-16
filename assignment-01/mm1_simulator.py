@@ -7,6 +7,7 @@ import sys
 import os
 import math
 import random
+import os
 from dataclasses import dataclass
 from typing import TextIO
 
@@ -63,7 +64,8 @@ class MM1QueueSimulation:
 
     def expon(self, mean: float) -> float:
         """Return an exponentially distributed random variate."""
-        return -mean * math.log(random.random())
+        u = max(random.random(), 1e-10)
+        return -mean * math.log(u)
 
     def update_time_avg_stats(self) -> None:
         """Update time-average statistical accumulators."""
@@ -101,7 +103,7 @@ class MM1QueueSimulation:
         if self.state.server_status == BUSY:
             self.state.num_in_q += 1
             if self.state.num_in_q > Q_LIMIT:
-                outfile.write(f"\nOverflow at time {self.state.sim_time}")
+                outfile.write(f"\nOverflow at time {self.state.sim_time}\n")
                 sys.exit(2)
             self.time_arrival[self.state.num_in_q] = self.state.sim_time
         else:
@@ -143,17 +145,17 @@ class MM1QueueSimulation:
         outfile.write(f"\n\nAverage delay in queue{avg_delay:11.3f} minutes\n\n")
         outfile.write(f"Average number in queue{avg_q:10.3f}\n\n")
         outfile.write(f"Server utilization{util:15.3f}\n\n")
-        outfile.write(f"Time simulation ended{self.state.sim_time:12.3f} minutes")
+        outfile.write(f"Time simulation ended{self.state.sim_time:12.3f} minutes\n")
 
 
 def main() -> None:
     """Main entry point."""
     script_dir = os.path.dirname(__file__)
-    input_file = os.path.join(script_dir, 'in.txt')
-    output_file = os.path.join(script_dir, 'out.txt')
-
+    input_path = os.path.join(script_dir, 'in.txt')
+    output_path = os.path.join(script_dir, 'out.txt')
+    
     try:
-        with open(input_file, 'r', encoding='utf-8') as infile:
+        with open(input_path, 'r', encoding='utf-8') as infile:
             line = infile.read().split()
             m_inter, m_serv, n_delays = float(line[0]), float(line[1]), int(line[2])
     except FileNotFoundError:
@@ -170,7 +172,7 @@ def main() -> None:
         print(f"Error: failed to parse numeric values from 'in.txt': {exc}", file=sys.stderr)
         return
 
-    with open(output_file, 'w', encoding='utf-8') as outfile:
+    with open(output_path, 'w', encoding='utf-8') as outfile:
         outfile.write("Single-server queueing system\n\n")
         outfile.write(f"Mean interarrival time{m_inter:11.3f} minutes\n\n")
         outfile.write(f"Mean service time{m_serv:16.3f} minutes\n\n")
