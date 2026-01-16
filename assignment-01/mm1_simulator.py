@@ -4,6 +4,7 @@ Simple event-driven simulation for a single-server queue (M/M/1).
 """
 
 import sys
+import os
 import math
 import random
 from dataclasses import dataclass
@@ -147,8 +148,12 @@ class MM1QueueSimulation:
 
 def main() -> None:
     """Main entry point."""
+    script_dir = os.path.dirname(__file__)
+    input_file = os.path.join(script_dir, 'in.txt')
+    output_file = os.path.join(script_dir, 'out.txt')
+    
     try:
-        with open('in.txt', 'r', encoding='utf-8') as infile:
+        with open(input_file, 'r', encoding='utf-8') as infile:
             line = infile.read().split()
             m_inter, m_serv, n_delays = float(line[0]), float(line[1]), int(line[2])
     except FileNotFoundError:
@@ -165,7 +170,7 @@ def main() -> None:
         print(f"Error: failed to parse numeric values from 'in.txt': {exc}", file=sys.stderr)
         return
 
-    with open('out.txt', 'w', encoding='utf-8') as outfile:
+    with open(output_file, 'w', encoding='utf-8') as outfile:
         outfile.write("Single-server queueing system\n\n")
         outfile.write(f"Mean interarrival time{m_inter:11.3f} minutes\n\n")
         outfile.write(f"Mean service time{m_serv:16.3f} minutes\n\n")
