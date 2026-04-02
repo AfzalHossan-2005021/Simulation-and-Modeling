@@ -6,8 +6,6 @@ try {
     exit 1
 }
 if ($LASTEXITCODE -ne 0) { Write-Error "Compilation failed"; exit $LASTEXITCODE }
-.
-\"./simulation.exe\"
 & .\simulation.exe
 $exitCode = $LASTEXITCODE
 Remove-Item .\simulation.exe -ErrorAction SilentlyContinue
